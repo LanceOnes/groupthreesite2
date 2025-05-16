@@ -1,0 +1,75 @@
+{% extends "layout/base.html" %}
+
+{% block 'title' %} Edit User {% endblock 'title' %}
+
+{% block 'content' %}
+
+{% include "include/sidebar.html" %}
+{% include "include/ToastMessage.html" %}
+
+<div class="p-2 sm:ml-64 mt-16 md:mt-14">
+    <div class="p-4 border-2 border-gray-200 rounded-lg">
+        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50">
+            <p class="text-2xl text-gray-400">Edit User</p>
+        </div>
+        <form action="/user/edit/{{ user.user_id }}" method="post">
+            {% csrf_token %}
+            <div class="max-w-md mx-auto space-y-4">
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Gender</label>
+                    <select name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <option value="">Select Gender</option>
+                        {% for gender in genders %}
+                            <option value="{{ gender.gender_id }}" {% if gender.gender_id == user.gender.gender_id %}selected{% endif %}>{{ gender.gender }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Birth Date</label>
+                    <input type="date" name="birth_date" value="{{ user.birth_date|date:'Y-m-d' }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Address</label>
+                    <input type="text" name="address" value="{{ user.address }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Contact Number</label>
+                    <input type="text" name="contact_number" value="{{ user.contact_number }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="email" value="{{ user.email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" name="username" value="{{ user.username }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Leave blank to keep current password">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                    <input type="password" name="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Leave blank to keep current password">
+                    <a href="{% url 'change_password' user.user_id %}" class="flex justify-end bg-white text-sm font-medium text-black px-3 py-2.5 mr-1 rounded-sm shadow-sm cursor-pointer hover:bg-gray-100 hover:outline-none">Change Password</a>
+                </div>
+            </div>
+        </form>
+        <div class="flex items-center justify-center mt-8 mb-4">
+            <div class="flex gap-4">
+                <button type="submit" class="hover:bg-green-400 text-sm font-medium text-black px-3 py-2.5 rounded-sm shadow-sm cursor-pointer hover:outline-none">Save Changes</button>
+                <a href="/user/list" class="bg-gray-600 px-6 py-2.5 font-medium text-white rounded-sm hover:bg-gray-700 hover:outline-none">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock 'content' %} 

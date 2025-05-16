@@ -1,0 +1,64 @@
+
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+
+
+    <form method="post" action="" class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+        {% csrf_token %}
+
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="text-sm text-red-600 bg-red-100 border border-red-300 px-3 py-2 rounded">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+        <div class="mb-5">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                required />
+        </div>
+        <div class="mb-2">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Your password</label>
+            <input type="password" id="password" name="password"
+                autocomplete="off"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                required />
+        </div>
+
+        <div class="mb-5 flex items-center">
+            <input type="checkbox" id="show-password" class="mr-2">
+            <label for="show-password" class="text-sm text-gray-700">Show password</label>
+        </div>
+        
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Log In</button>
+
+        <p class="text-sm font-light text-gray-900 dark:text-gray-900 mt-4">
+            Don't have an account yet? <a href="/user/add" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+        </p>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const checkbox = document.getElementById("show-password");
+            const passwordField = document.getElementById("password");
+
+            checkbox.addEventListener("change", function () {
+                passwordField.type = this.checked ? "text" : "password";
+            });
+        });
+    </script>
+</body>
+</html>
